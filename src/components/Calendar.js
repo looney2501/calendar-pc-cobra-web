@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import moment from 'moment'
 import { getWeekdaysShort } from '../utils/calendarUtils'
+import '../assets/styles/Calendar.scss'
 
 const Calendar = () => {
 
@@ -33,7 +34,7 @@ const Calendar = () => {
     let blanks = []
     for (let i = 0; i < firstDayOfMonth(); i++) {
       blanks.push(
-        <td className="calendar-day empty">{''}</td>
+        <td className="calendar-day-empty">{''}</td>
       )
     }
     return blanks
@@ -43,8 +44,15 @@ const Calendar = () => {
     let daysInMonth = []
     for (let d = 1; d <= noDaysInMonth(); d++) {
       daysInMonth.push(
-        <td key={d} className={`calendar-day ${d.toString() === currentDay ? "today" : ""}`}>
-          {d}
+        <td key={d} className={`${d.toString() === currentDay ? "today" : ""}`}>
+          <div className='calendar-day-wrapper'>
+            <div className='calendar-day'>
+              <div className='calendar-day-circle'>
+                {d}
+              </div>
+            </div>
+            <div className='calendar-day-events'></div>
+          </div>
         </td>
       )
     }
@@ -58,7 +66,7 @@ const Calendar = () => {
     const totalDays = noMonthDays + noBeforeBlanks
     for (let d = 0; d < 42 - totalDays; d++) {
       blanks.push(
-        <td className="calendar-day empty">{''}</td>
+        <td className="calendar-day-empty">{''}</td>
       )
     }
     return blanks
@@ -84,7 +92,7 @@ const Calendar = () => {
   }, [])
 
   return (
-    <table>
+    <table className='calendar-table'>
       <thead>
         <tr>
           {weekdaysShort.map(day => {
