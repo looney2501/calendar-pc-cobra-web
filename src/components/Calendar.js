@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import moment from 'moment'
 import { getWeekdaysShort } from '../utils/calendarUtils'
 import '../assets/styles/Calendar.scss'
+import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 
 const Calendar = () => {
+  const [selectedMonth, setSelectedMonth] = useState(moment())
   const [selectedDay, setSelectedDay] = useState(moment())
-
-  const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
-
-  const currentDay = moment().format("D")
 
   useEffect(() => {
     moment.updateLocale('en', {
@@ -17,17 +15,19 @@ const Calendar = () => {
       }
     })
   }, [])
+  const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
+  const currentDay = moment()
 
   const firstDayOfMonth = useCallback(() => {
-    return (selectedDay
+    return (Number.parseInt(selectedMonth
       .startOf('month')
-      .format('d') + 6) % 7
-  }, [selectedDay])
+      .format('d')) + 6) % 7
+  }, [selectedMonth])
 
   const noDaysInMonth = useCallback(() => {
-    return selectedDay
+    return selectedMonth
       .daysInMonth()
-  }, [selectedDay])
+  }, [selectedMonth])
 
   const getBeforeBlankDays = useCallback(() => {
     let blanks = []
@@ -37,14 +37,15 @@ const Calendar = () => {
       )
     }
     return blanks
-  }, [selectedDay])
+  }, [selectedMonth])
 
   const getMonthDays = useCallback(() => {
     let daysInMonth = []
     for (let d = 1; d <= noDaysInMonth(); d++) {
       daysInMonth.push(
-        <td key={d} className={`${d.toString() === currentDay ? "today" : ""}`}>
-          <div className='calendar-day-wrapper'>
+        <td key={d} className={`${d.toString() === currentDay.format('D') && selectedMonth.format('M Y') === currentDay.format('M Y') ? 'today' : ''}` +
+                              ` ${d.toString() === selectedDay.format('D') && selectedMonth.format('M Y') === selectedDay.format('M Y') ? 'selected' : ''}`}>
+          <div className='calendar-day-wrapper' onClick={() => setSelectedDay(moment(selectedMonth.date(d))) }>
             <div className='calendar-day'>
               <div className='calendar-day-circle'>
                 {d}
@@ -56,7 +57,7 @@ const Calendar = () => {
       )
     }
     return daysInMonth
-  }, [selectedDay])
+  }, [selectedMonth, selectedDay])
 
   const getAfterBlankDays = useCallback(() => {
     let blanks = []
@@ -69,9 +70,9 @@ const Calendar = () => {
       )
     }
     return blanks
-  }, [selectedDay])
+  }, [selectedMonth])
 
-  const getCalendarSlots = () => {
+  const getCalendarSlots = useCallback(() => {
     const totalSlots = [...getBeforeBlankDays(), ...getMonthDays(), ...getAfterBlankDays()]
     const rows = []
     for (let i = 0; i < 6; i++) {
@@ -88,23 +89,22 @@ const Calendar = () => {
         }
       </>
     )
-  }
+  }, [selectedMonth, selectedDay])
+
   const [calendarSlots, setCalendarSlots] = useState(getCalendarSlots())
+
   useEffect(() => {
     setCalendarSlots(getCalendarSlots())
-  }, [selectedDay])
+  }, [selectedMonth, selectedDay])
+
   return (
     <>
-      <div>
-        <span className='prev-month-button' onClick={ () => setSelectedDay(moment(selectedDay.subtract(1, 'M')))}>
-          prev----
-        </span>
+      <div className='calendar-month'>
+        <SlArrowLeft className='prev-month-button' onClick={() => setSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}/>
+        <SlArrowRight className='next-month-button' onClick={() => setSelectedMonth(moment(selectedMonth.add(1, 'M')))}/>
         <span className='selected-month'>
-          { selectedDay.format('MMMM YYYY') }
-        </span>      
-        <span className='next-month-button' onClick={ () => setSelectedDay(moment(selectedDay.add(1, 'M')))}>
-          ----next
-        </span>
+          { selectedMonth.format('MMMM YYYY') }
+        </span>    
       </div>
       <table className='calendar-table'>
         <thead>
