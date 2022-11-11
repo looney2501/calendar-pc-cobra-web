@@ -25,7 +25,9 @@ import Calendar from './components/Calendar'
 
 const App = () => {
   return (
-    <Calendar />
+    <div className="w-50" style={{ height: '100vh' }}>
+      <Calendar />
+    </div>
   )
 }
 

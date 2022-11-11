@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import moment from 'moment'
 import { getWeekdaysShort } from '../utils/calendarUtils'
+import '../assets/styles/Calendar.scss'
 
 const Calendar = () => {
   const [selectedDay, setSelectedDay] = useState(moment())
@@ -20,7 +21,7 @@ const Calendar = () => {
   const firstDayOfMonth = useCallback(() => {
     return (selectedDay
       .startOf('month')
-      .format('d') - 1 + 7) % 7
+      .format('d') + 6) % 7
   }, [selectedDay])
 
   const noDaysInMonth = useCallback(() => {
@@ -105,7 +106,7 @@ const Calendar = () => {
           ----next
         </span>
       </div>
-      <table>
+      <table className='calendar-table'>
         <thead>
           <tr>
             {weekdaysShort.map(day => {
