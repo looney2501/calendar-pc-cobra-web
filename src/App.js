@@ -1,34 +1,19 @@
-import logo from './logo.svg';
-import './App.scss';
+import './App.scss'
 import Calendar from './components/Calendar'
+import './App.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Header } from './components/Header'
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 const App = () => {
   return (
-    <div className="w-50" style={{ height: '100vh' }}>
-      <Calendar />
-    </div>
+    <>
+      <Header />
+      <div className="w-50" style={{ height: '100vh' }}>
+        <Calendar />
+      </div>
+    </>
   )
 }
 
-export default App;
+export default App
