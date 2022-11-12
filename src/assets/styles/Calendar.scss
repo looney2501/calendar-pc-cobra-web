@@ -1,12 +1,34 @@
 @import "globals";
 
+
+.calendar-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .prev-month-button, .next-month-button {
+    margin: 2px;
+    cursor: pointer;
+    color: $font-blue;
+  }
+
+  .selected-month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $font-blue;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
 .calendar-table {
   width: 100%;
   height: 100%;
   background-color: $background-color;
 
   thead {
-    border-bottom: solid 5px $primary-blue !important;
+    border-bottom: solid 4px $primary-blue !important;
 
     th {
       color: $font-blue;
@@ -36,6 +58,7 @@
             padding-left: 5px;
             padding-top: 5px;
             font-size: 13px;
+            font-weight: 500;
             user-select: none;
           }
 
@@ -53,8 +76,8 @@
         .calendar-day-circle {
           width: 20px;
           height: 20px;
-          line-height: 16px;
-          border: solid 1px $primary-blue;
+          line-height: 15px;
+          border: solid 2px $primary-blue;
           border-radius: 50%;
           text-align: center;
         }
@@ -62,23 +85,15 @@
 
       td.selected {
         background-color: $light-blue;
+
+        .calendar-day {
+          color: $background-color;
+
+          .calendar-day-circle {
+            border-color: $background-color;
+          }
+        }
       }
     }
-  }
-}
-
-.calendar-month {
-  width: 100%;
-  padding: 1%;
-
-  .prev-month-button, .next-month-button {
-    margin: 2px;
-    cursor: pointer;
-  }
-
-  .selected-month {
-    color: $font-blue;
-    float: right;
-    font-weight: bold;
   }
 }

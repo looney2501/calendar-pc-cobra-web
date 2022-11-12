@@ -15,8 +15,9 @@ const Calendar = () => {
       }
     })
   }, [])
+
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
-  const currentDay = moment()
+  const currentDay = useMemo(() => moment(), [])
 
   const firstDayOfMonth = useCallback(() => {
     return (Number.parseInt(selectedMonth
@@ -91,20 +92,18 @@ const Calendar = () => {
     )
   }, [selectedMonth, selectedDay])
 
-  const [calendarSlots, setCalendarSlots] = useState(getCalendarSlots())
-
-  useEffect(() => {
-    setCalendarSlots(getCalendarSlots())
-  }, [selectedMonth, selectedDay])
-
   return (
     <>
-      <div className='calendar-month'>
-        <SlArrowLeft className='prev-month-button' onClick={() => setSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}/>
-        <SlArrowRight className='next-month-button' onClick={() => setSelectedMonth(moment(selectedMonth.add(1, 'M')))}/>
-        <span className='selected-month'>
-          { selectedMonth.format('MMMM YYYY') }
-        </span>    
+      <div className='calendar-header'>
+        <button className="btn btn-default" onClick={() => setSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}>
+          <SlArrowLeft className='prev-month-button' />
+        </button>
+        <div className='selected-month'>
+          {selectedMonth.format('MMMM YYYY')}
+        </div>
+        <button className="btn btn-default" onClick={() => setSelectedMonth(moment(selectedMonth.add(1, 'M')))}>
+          <SlArrowRight className='next-month-button' />
+        </button>
       </div>
       <table className='calendar-table'>
         <thead>
@@ -120,7 +119,7 @@ const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          { calendarSlots }
+          {getCalendarSlots()}
         </tbody>
       </table>
     </>
