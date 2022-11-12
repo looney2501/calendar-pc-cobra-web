@@ -1,0 +1,10 @@
+@import 'globals.scss';
+.item{
+    cursor: pointer;
+   
+
+}
+
+.item:hover{
+    background-color: $super-light-gray;
+}
