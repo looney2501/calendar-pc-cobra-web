@@ -4,13 +4,12 @@ import "../assets/styles/Header.scss";
 export function Header() {
   return (
     <>
-      <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand href="#home">Cobra Calendar</Navbar.Brand>
-          <div className="spacer"></div>
-          <Nav className="me-auto">
-            <Nav.Link href="#map">View map</Nav.Link>
-            <Nav.Link href="#logOut">Log out</Nav.Link>
+      <Navbar className="header">
+        <Container className="header-container">
+          <Navbar.Brand className="brand" href="#home">Cobra Calendar</Navbar.Brand>
+          <Nav>
+            <button className="btn btn-map">View map</button>
+            <button className="btn btn-logout">Log out</button>
           </Nav>
         </Container>
       </Navbar>
