@@ -1,14 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import moment from 'moment'
 import { getWeekdaysShort } from '../utils/calendarUtils'
 import '../assets/styles/Calendar.scss'
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
+import { EventContext } from '../context/EventProvider'
 
 const Calendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(moment())
-  const [selectedDay, setSelectedDay] = useState(moment())
+  // const [selectedDay, setSelectedDay] = useState(moment())
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
+
+  const { selectedDay, selectedDayEvents, changeSelectedDay } = useContext(EventContext)
 
   const firstDayOfMonth = useCallback(() => {
     return (Number.parseInt(selectedMonth
@@ -37,7 +40,7 @@ const Calendar = () => {
       daysInMonth.push(
         <td key={d} className={`${d.toString() === currentDay.format('D') && selectedMonth.format('M Y') === currentDay.format('M Y') ? 'today' : ''}` +
                               ` ${d.toString() === selectedDay.format('D') && selectedMonth.format('M Y') === selectedDay.format('M Y') ? 'selected' : ''}`}>
-          <div className='calendar-day-wrapper' onClick={() => setSelectedDay(moment(selectedMonth.date(d))) }>
+          <div className='calendar-day-wrapper' onClick={() => changeSelectedDay(moment(selectedMonth.date(d))) }>
             <div className='calendar-day'>
               <div className='calendar-day-circle'>
                 {d}
@@ -82,15 +85,6 @@ const Calendar = () => {
       </>
     )
   }, [selectedMonth, selectedDay])
-
-  useEffect(() => {
-    moment.updateLocale('en', {
-      week: {
-        dow: 1, // Monday is the first day of the week.
-      }
-    })
-    setSelectedDay(currentDay)
-  }, [])
 
   return (
     <div id="Calendar" className="d-flex flex-column">
