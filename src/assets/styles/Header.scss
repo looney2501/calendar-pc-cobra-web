@@ -1,0 +1,31 @@
+@import "globals";
+
+.header {
+  background-color: $primary-blue;
+  height: 60px;
+
+  .header-container {
+    max-width: inherit !important;
+    margin: 0 !important;
+
+    .brand {
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .spacer {
+      flex:1;
+    }
+
+    .btn-map {
+      color: white;
+      margin-right: 10px;
+    }
+
+    .btn-logout {
+      background-color: $font-blue;
+      color: white;
+    }
+  }
+}

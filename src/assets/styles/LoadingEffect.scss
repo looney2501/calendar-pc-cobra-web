@@ -1,0 +1,13 @@
+.spinner-wrapper{
+  background-color: rgba(255, 255, 255, 0.4);
+  height: 100%;
+  z-index: 99999998;
+
+  .react-bodymovin-container {
+    position: relative;
+    top: 35%;
+    margin: 0 auto;
+    width: 200px;
+    z-index: 99999999;
+  }
+}

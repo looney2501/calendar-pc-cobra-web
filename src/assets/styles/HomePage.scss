@@ -1,0 +1,14 @@
+.calendar-wrapper {
+  height: calc(100vh - 60px);
+  display: flex;
+
+  #Calendar {
+    flex-grow: 1;
+    flex-basis: 50vw;
+  }
+
+  #EventList {
+    flex-grow: 1;
+    flex-basis: 50vw;
+  }
+}
