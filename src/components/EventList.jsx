@@ -9,7 +9,7 @@ export function EventList({ events }) {
   };
   const colorsList = ["#34ace070","#34ace0AA","#34ace040"];
   return (
-    <ListGroup variant="flush">
+    <ListGroup id="EventList" variant="flush">
       {events.map((listEventObject, index) => {
         const color = `${colorsList[index%3]}`
         return (

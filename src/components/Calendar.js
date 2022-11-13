@@ -7,15 +7,6 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 const Calendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(moment())
   const [selectedDay, setSelectedDay] = useState(moment())
-
-  useEffect(() => {
-    moment.updateLocale('en', {
-      week: {
-        dow: 1, // Monday is the first day of the week.
-      }
-    })
-  }, [])
-
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
 
@@ -92,8 +83,17 @@ const Calendar = () => {
     )
   }, [selectedMonth, selectedDay])
 
+  useEffect(() => {
+    moment.updateLocale('en', {
+      week: {
+        dow: 1, // Monday is the first day of the week.
+      }
+    })
+    setSelectedDay(currentDay)
+  }, [])
+
   return (
-    <>
+    <div id="Calendar" className="d-flex flex-column">
       <div className='calendar-header'>
         <button className="btn btn-default" onClick={() => setSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}>
           <SlArrowLeft className='prev-month-button' />
@@ -122,7 +122,7 @@ const Calendar = () => {
           {getCalendarSlots()}
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 
