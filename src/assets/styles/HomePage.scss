@@ -3,13 +3,12 @@
   display: flex;
 
   #Calendar {
-    flex-grow: 1;
+    //flex-grow: 1;
     flex-basis: 50vw;
   }
 
-  #EventList {
-    flex-grow: 1;
+  .event-list-wrapper {
+    //flex-grow: 1;
     flex-basis: 50vw;
-    min-width: 30rem;
   }
 }

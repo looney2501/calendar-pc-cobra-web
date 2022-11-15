@@ -9,7 +9,7 @@ const HomePage = () => {
       <Header />
       <div className="calendar-wrapper">
         <Calendar />
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="event-list-wrapper">
           <EventList events={[]} />
         </div>
       </div>
