@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { CHANGE_SELECTED_DAY, GET_EVENTS_DAY, CHANGE_LOADING } from '../actions/actionTypes'
+import { CHANGE_SELECTED_DAY, GET_EVENTS_DAY, CHANGE_LOADING, GET_EVENTS_MONTH, CHANGE_SELECTED_MONTH } from '../actions/actionTypes'
 
 export const initialState = {
   selectedMonth: moment(),
@@ -17,6 +17,10 @@ export const reducer = (state, action) => {
       return { ...state, selectedDay: action.payload.selectedDay }
     case GET_EVENTS_DAY:
       return { ...state, selectedDayEvents: action.payload.dayEvents }
+    case CHANGE_SELECTED_MONTH:
+      return { ...state, selectedMonth: action.payload.selectedMonth }
+    case GET_EVENTS_MONTH:
+      return { ...state, selectedMonthEvents: action.payload.monthEvents }
     default:
       return state
   }

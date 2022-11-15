@@ -63,6 +63,27 @@
 
           .calendar-day-events {
             flex: 1 0;
+            padding-top: 2px;
+
+            .calendar-day-event-list {
+              margin: 0 10%;
+
+              .calendar-day-event {
+                border: 1px solid $primary-blue;
+                border-radius: 15px;
+                padding-left: 5px;
+                text-align: left;
+                font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                background-color: $light-gray;
+              }
+            }
+
+            .calendar-day-more-events {
+              margin: 0 10%;
+              text-align: right;
+            }
           }
         }
       }

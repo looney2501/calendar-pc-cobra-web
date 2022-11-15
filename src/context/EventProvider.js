@@ -1,7 +1,7 @@
 import { initialState, reducer } from '../services/reducers/eventReducer'
 import React, { useCallback, useEffect, useReducer } from 'react'
-import { GET_EVENTS_DAY, CHANGE_LOADING, CHANGE_SELECTED_DAY } from '../services/actions/actionTypes'
-import { getEventsDay } from '../services/actions/eventActions'
+import { GET_EVENTS_DAY, CHANGE_LOADING, CHANGE_SELECTED_DAY, GET_EVENTS_MONTH, CHANGE_SELECTED_MONTH } from '../services/actions/actionTypes'
+import { getEventsDay, getEventsMonth } from '../services/actions/eventActions'
 import moment from 'moment/moment'
 import * as events from 'events'
 
@@ -35,9 +35,31 @@ const EventProvider = ({ children }) => {
     }
   }
 
-  const changeSelectedDay = useCallback(changeDayCallback, [])
+  const changeMonthCallback = async (newMonth) => {
+    dispatch({ type: CHANGE_SELECTED_MONTH, payload: { selectedMonth: newMonth } })
+    try {
+      var month = newMonth.format('M')
+      var year = newMonth.format('YYYY')
+      const response = await getEventsMonth(year, month)
+      const monthEvents = response.data
+      dispatch({ type: GET_EVENTS_MONTH, payload: { monthEvents: monthEvents } })
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+    }
+  }
 
-  const value = { ...eventState, changeSelectedDay}
+  const changeSelectedDay = useCallback(changeDayCallback, [])
+  const changeSelectedMonth = useCallback(changeMonthCallback, [])
+
+  const value = { ...eventState, changeSelectedDay, changeSelectedMonth}
 
   useEffect(() => {
     moment.updateLocale('en', {
@@ -47,8 +69,8 @@ const EventProvider = ({ children }) => {
     })
     //Incarca evenimentele pentru ziua curenta
     changeSelectedDay(eventState.selectedDay)
+    changeSelectedMonth(eventState.selectedMonth)
   }, [])
-
   return (
     <EventContext.Provider value={value}>
       {children}
