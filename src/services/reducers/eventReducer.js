@@ -5,7 +5,7 @@ export const initialState = {
   selectedMonth: moment(),
   selectedMonthEvents: [],
   selectedDay: moment(),
-  selectedDayEvents: [],
+  selectedDayEvents: [{name: "Nankjsnf", date: new Date().toLocaleString(), description: "fsjbhf"}],
   isLoading: false
 }
 
