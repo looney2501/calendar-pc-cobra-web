@@ -19,10 +19,13 @@ export function EventList() {
   const onEventClick = (listEventObject) => {
     setShowEventDetails(!showEventDetails);
 
-    getEventById(listEventObject.id).then(resp => {
-      //TODO check the backend response
-      setSelectedEvent(resp);
-    })
+    getEventById(listEventObject.id)
+      .then((resp) => resp.data)
+      .then((resp) => {
+        //TODO check the backend response
+        setSelectedEvent(resp);
+      })
+      .catch((err) => console.error(err));
   };
 
   const colorsList = ["#34ace070", "#34ace0AA", "#34ace040"];
