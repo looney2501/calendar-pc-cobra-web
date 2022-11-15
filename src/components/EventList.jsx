@@ -1,34 +1,40 @@
-import { ListGroup } from 'react-bootstrap'
-import { MdEventNote } from 'react-icons/md'
-import '../assets/styles/EventList.scss'
-import '../assets/styles/globals.scss'
-import { useContext,useState } from 'react'
-import LoadingEffect from './LoadingEffect'
+import { ListGroup } from "react-bootstrap";
+import { MdEventNote } from "react-icons/md";
+import "../assets/styles/EventList.scss";
+import "../assets/styles/globals.scss";
+import { useContext, useState } from "react";
+import LoadingEffect from "./LoadingEffect";
 import EventDetails from "./EventDetails";
-import {EventContext} from "../context/EventProvider";
+import { EventContext } from "../context/EventProvider";
+import { getEventById } from "../services/actions/eventActions";
 
 export function EventList() {
-
-  const { selectedDayEvents, isLoading } = useContext(EventContext)
+  const { selectedDayEvents, isLoading } = useContext(EventContext);
   const [showEventDetails, setShowEventDetails] = useState(false);
-  const [selectedEvent,setSelectedEvent] = useState({name:"default",date:new Date().toLocaleString(),description:"deafult"});
+  const [selectedEvent, setSelectedEvent] = useState({
+    name: "default",
+    date: new Date().toLocaleString(),
+    description: "deafult",
+  });
   const onEventClick = (listEventObject) => {
-    // write here what happens when clicking an event from event list
-    console.log("****" + listEventObject.date + "****")
-    console.log(listEventObject)
-      setShowEventDetails(!showEventDetails);
-      setSelectedEvent(listEventObject);
+    setShowEventDetails(!showEventDetails);
 
-  }
+    getEventById(listEventObject.id).then(resp => {
+      //TODO check the backend response
+      setSelectedEvent(resp);
+    })
+  };
 
-  const colorsList = ['#34ace070', '#34ace0AA', '#34ace040']
+  const colorsList = ["#34ace070", "#34ace0AA", "#34ace040"];
 
   return (
     <div id="EventList">
-      {isLoading === true ? <LoadingEffect message="Loading events" /> : (
+      {isLoading === true ? (
+        <LoadingEffect message="Loading events" />
+      ) : (
         <ListGroup variant="flush">
           {selectedDayEvents.map((event, index) => {
-            const color = `${colorsList[index % 3]}`
+            const color = `${colorsList[index % 3]}`;
             return (
               <ListGroup.Item
                 className="item"
@@ -39,13 +45,18 @@ export function EventList() {
                 <span> </span>
                 {event.name}
               </ListGroup.Item>
-            )
+            );
           })}
         </ListGroup>
       )}
       {/*TODO check description existance in selectedEvent object*/}
-      {showEventDetails ? <EventDetails name={selectedEvent.name} date={selectedEvent.date} description={selectedEvent.description}
-                                        /> : null}
+      {showEventDetails ? (
+        <EventDetails
+          name={selectedEvent.name}
+          date={selectedEvent.date}
+          description={selectedEvent.description}
+        />
+      ) : null}
     </div>
-  )
+  );
 }
