@@ -1,14 +1,11 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo } from 'react'
 import moment from 'moment'
 import { getWeekdaysShort } from '../utils/calendarUtils'
 import '../assets/styles/Calendar.scss'
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 import { EventContext } from '../context/EventProvider'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const Calendar = () => {
-  // const [selectedMonth, setSelectedMonth] = useState(moment())
-  // const [selectedDay, setSelectedDay] = useState(moment())
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
   const noEventsShownPerDay = 2;

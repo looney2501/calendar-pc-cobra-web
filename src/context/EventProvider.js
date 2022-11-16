@@ -10,7 +10,6 @@ import {
 } from '../services/actions/actionTypes'
 import { getEventsDay, getEventsMonth } from '../services/actions/eventActions'
 import moment from 'moment/moment'
-import * as events from 'events'
 
 export const EventContext = React.createContext(initialState)
 
@@ -77,10 +76,10 @@ const EventProvider = ({ children }) => {
         dow: 1, // Monday is the first day of the week.
       }
     })
-    //Incarca evenimentele pentru ziua curenta
     changeSelectedDay(eventState.selectedDay)
     changeSelectedMonth(eventState.selectedMonth)
   }, [])
+
   return (
     <EventContext.Provider value={value}>
       {children}

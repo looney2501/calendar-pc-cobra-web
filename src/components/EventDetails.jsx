@@ -1,8 +1,7 @@
 import { Card } from "react-bootstrap";
 import "../assets/styles/EventDetails.scss";
 
-// date e de tipul Date javascript
-function EventDetails({ name, date, description, location,show }) {
+function EventDetails({ name, date, description, show }) {
   return (
     <Card border="light" style={{ width: "100%", height: "100%" }}>
       <Card.Header className="details-header" style={{display:"flex",justifyContent: "space-between"}}>{date}
