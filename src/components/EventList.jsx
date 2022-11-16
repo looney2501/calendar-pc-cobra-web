@@ -8,7 +8,7 @@ import LoadingEffect from './LoadingEffect'
 
 export function EventList() {
 
-  const { selectedDayEvents, isLoading } = useContext(EventContext)
+  const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents } = useContext(EventContext)
 
   const onEventClick = (listEventObject) => {
     // write here what happens when clicking an event from event list
@@ -18,7 +18,7 @@ export function EventList() {
 
   return (
     <div id="EventList">
-      {isLoading === true ? <LoadingEffect message="Loading events" /> : (
+      {isLoadingDayEvents || isLoadingMonthEvents ? <LoadingEffect message="Loading events" /> : (
         <ListGroup variant="flush">
           {selectedDayEvents.map((event, index) => {
             const color = `${colorsList[index % 3]}`
