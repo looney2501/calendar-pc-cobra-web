@@ -1,0 +1,16 @@
+@import "globals";
+
+.details-header {
+  background-color: $light-gray;
+  font-weight: bold;
+}
+
+.details-body {
+  background-color: $super-light-gray;
+}
+
+.btn-close{
+  background-color: $light-gray;
+  color: white;
+
+}
