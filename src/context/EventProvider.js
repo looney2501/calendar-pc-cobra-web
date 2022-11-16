@@ -1,6 +1,13 @@
 import { initialState, reducer } from '../services/reducers/eventReducer'
 import React, { useCallback, useEffect, useReducer } from 'react'
-import { GET_EVENTS_DAY, CHANGE_LOADING, CHANGE_SELECTED_DAY, GET_EVENTS_MONTH, CHANGE_SELECTED_MONTH } from '../services/actions/actionTypes'
+import {
+  GET_EVENTS_DAY,
+  CHANGE_LOADING_DAY_EVENTS,
+  CHANGE_SELECTED_DAY,
+  GET_EVENTS_MONTH,
+  CHANGE_SELECTED_MONTH,
+  CHANGE_LOADING_MONTH_EVENTS
+} from '../services/actions/actionTypes'
 import { getEventsDay, getEventsMonth } from '../services/actions/eventActions'
 import moment from 'moment/moment'
 import * as events from 'events'
@@ -13,7 +20,7 @@ const EventProvider = ({ children }) => {
   const changeDayCallback = async (newDayMoment) => {
     dispatch({ type: CHANGE_SELECTED_DAY, payload: { selectedDay: newDayMoment } })
     try {
-      dispatch({ type: CHANGE_LOADING, payload: { isLoading: true } })
+      dispatch({ type: CHANGE_LOADING_DAY_EVENTS, payload: { isLoading: true } })
       var month = newDayMoment.format('M')
       var day   = newDayMoment.format('D')
       var year  = newDayMoment.format('YYYY')
@@ -31,13 +38,14 @@ const EventProvider = ({ children }) => {
         console.log('Error', error.message)
       }
     } finally {
-      dispatch({ type: CHANGE_LOADING, payload: { isLoading: false } })
+      dispatch({ type: CHANGE_LOADING_DAY_EVENTS, payload: { isLoading: false } })
     }
   }
 
   const changeMonthCallback = async (newMonth) => {
     dispatch({ type: CHANGE_SELECTED_MONTH, payload: { selectedMonth: newMonth } })
     try {
+      dispatch({ type: CHANGE_LOADING_MONTH_EVENTS, payload: { isLoading: true } })
       var month = newMonth.format('M')
       var year = newMonth.format('YYYY')
       const response = await getEventsMonth(year, month)
@@ -53,6 +61,8 @@ const EventProvider = ({ children }) => {
       } else {
         console.log('Error', error.message)
       }
+    } finally {
+      dispatch({ type: CHANGE_LOADING_MONTH_EVENTS, payload: { isLoading: false } })
     }
   }
 

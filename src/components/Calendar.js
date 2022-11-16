@@ -12,7 +12,7 @@ const Calendar = () => {
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
 
-  const { selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth } = useContext(EventContext)
+  const { selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth, isLoadingMonthEvents } = useContext(EventContext)
 
   const firstDayOfMonth = useCallback(() => {
     return (Number.parseInt(selectedMonth
@@ -48,21 +48,25 @@ const Calendar = () => {
                 {d}
               </div>
             </div>
-            <div className='calendar-day-events'>
-              <ListGroup className='calendar-day-event-list'>
+            {isLoadingMonthEvents === true ? (
+              <></>
+            ) : (
+              <div className='calendar-day-events'>
+                <ListGroup className='calendar-day-event-list'>
                   { selectedMonthEvents[d] && selectedMonthEvents[d]
                     .slice(0, 2)
                     .map((ev, i) => <ListGroupItem key={i} className='calendar-day-event'>{ev.name}</ListGroupItem>) }
                 </ListGroup>
                 { selectedMonthEvents[d] && selectedMonthEvents[d].length > 2 &&
                   <div className='calendar-day-more-events'> +{selectedMonthEvents[d].length - 2} </div>}
-            </div>
+              </div>
+            )}
           </div>
         </td>
       )
     }
     return daysInMonth
-  }, [selectedMonth, selectedDay, selectedMonthEvents])
+  }, [selectedMonth, selectedDay, selectedMonthEvents, isLoadingMonthEvents])
 
   const getAfterBlankDays = useCallback(() => {
     let blanks = []
@@ -94,7 +98,7 @@ const Calendar = () => {
         }
       </>
     )
-  }, [selectedMonth, selectedDay, selectedMonthEvents])
+  }, [selectedMonth, selectedDay, selectedMonthEvents, isLoadingMonthEvents])
 
   return (
     <div id="Calendar" className="d-flex flex-column">
