@@ -11,6 +11,7 @@ const Calendar = () => {
   // const [selectedDay, setSelectedDay] = useState(moment())
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
+  const noEventsShownPerDay = 2;
 
   const { selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth, isLoadingMonthEvents } = useContext(EventContext)
 
@@ -35,7 +36,6 @@ const Calendar = () => {
     return blanks
   }, [selectedMonth])
 
-
   const getMonthDays = useCallback(() => {
     let daysInMonth = []
     for (let d = 1; d <= noDaysInMonth(); d++) {
@@ -52,13 +52,13 @@ const Calendar = () => {
               <></>
             ) : (
               <div className='calendar-day-events'>
-                <ListGroup className='calendar-day-event-list'>
+                <div className='calendar-day-event-list'>
                   { selectedMonthEvents[d] && selectedMonthEvents[d]
-                    .slice(0, 2)
-                    .map((ev, i) => <ListGroupItem key={i} className='calendar-day-event'>{ev.name}</ListGroupItem>) }
-                </ListGroup>
-                { selectedMonthEvents[d] && selectedMonthEvents[d].length > 2 &&
-                  <div className='calendar-day-more-events'> +{selectedMonthEvents[d].length - 2} </div>}
+                    .slice(0, noEventsShownPerDay)
+                    .map((ev, i) => <div title={ev.name} key={i} className='calendar-day-event'>{ev.name}</div>) }
+                </div>
+                { selectedMonthEvents[d] && selectedMonthEvents[d].length > noEventsShownPerDay &&
+                  <div className='calendar-day-more-events'>+{selectedMonthEvents[d].length - noEventsShownPerDay}</div>}
               </div>
             )}
           </div>
