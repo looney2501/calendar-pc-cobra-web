@@ -10,7 +10,7 @@ import { getEventById } from "../services/actions/eventActions";
 import { useEffect } from "react";
 
 export function EventList() {
-  const { selectedDayEvents, isLoading } = useContext(EventContext);
+  const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents } = useContext(EventContext)
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState({
     name: "default",
@@ -38,7 +38,7 @@ export function EventList() {
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingDayEvents || isLoadingMonthEvents ? (
         <LoadingEffect message="Loading events" />
       ) : (
         <>

@@ -4,14 +4,16 @@ import { getWeekdaysShort } from '../utils/calendarUtils'
 import '../assets/styles/Calendar.scss'
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 import { EventContext } from '../context/EventProvider'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const Calendar = () => {
-  const [selectedMonth, setSelectedMonth] = useState(moment())
+  // const [selectedMonth, setSelectedMonth] = useState(moment())
   // const [selectedDay, setSelectedDay] = useState(moment())
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
   const currentDay = useMemo(() => moment(), [])
+  const noEventsShownPerDay = 2;
 
-  const { selectedDay, selectedDayEvents, changeSelectedDay } = useContext(EventContext)
+  const { selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth, isLoadingMonthEvents } = useContext(EventContext)
 
   const firstDayOfMonth = useCallback(() => {
     return (Number.parseInt(selectedMonth
@@ -46,13 +48,25 @@ const Calendar = () => {
                 {d}
               </div>
             </div>
-            <div className='calendar-day-events'></div>
+            {isLoadingMonthEvents === true ? (
+              <></>
+            ) : (
+              <div className='calendar-day-events'>
+                <div className='calendar-day-event-list'>
+                  { selectedMonthEvents[d] && selectedMonthEvents[d]
+                    .slice(0, noEventsShownPerDay)
+                    .map((ev, i) => <div title={ev.name} key={i} className='calendar-day-event'>{ev.name}</div>) }
+                </div>
+                { selectedMonthEvents[d] && selectedMonthEvents[d].length > noEventsShownPerDay &&
+                  <div className='calendar-day-more-events'>+{selectedMonthEvents[d].length - noEventsShownPerDay}</div>}
+              </div>
+            )}
           </div>
         </td>
       )
     }
     return daysInMonth
-  }, [selectedMonth, selectedDay])
+  }, [selectedMonth, selectedDay, selectedMonthEvents, isLoadingMonthEvents])
 
   const getAfterBlankDays = useCallback(() => {
     let blanks = []
@@ -84,18 +98,18 @@ const Calendar = () => {
         }
       </>
     )
-  }, [selectedMonth, selectedDay])
+  }, [selectedMonth, selectedDay, selectedMonthEvents, isLoadingMonthEvents])
 
   return (
     <div id="Calendar" className="d-flex flex-column">
       <div className='calendar-header'>
-        <button className="btn btn-default" onClick={() => setSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}>
+        <button className="btn btn-default" onClick={() => changeSelectedMonth(moment(selectedMonth.subtract(1, 'M')))}>
           <SlArrowLeft className='prev-month-button' />
         </button>
         <div className='selected-month'>
           {selectedMonth.format('MMMM YYYY')}
         </div>
-        <button className="btn btn-default" onClick={() => setSelectedMonth(moment(selectedMonth.add(1, 'M')))}>
+        <button className="btn btn-default" onClick={() => changeSelectedMonth(moment(selectedMonth.add(1, 'M')))}>
           <SlArrowRight className='next-month-button' />
         </button>
       </div>

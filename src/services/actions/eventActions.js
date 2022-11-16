@@ -8,7 +8,12 @@ export const getEventsDay = (year, month, day) => {
   });
 };
 
-//TODO assure that is the good endpoint
 export const getEventById = (id) => {
   return Axios.get(baseUrl + `/events/${id}`);
 };
+
+export const getEventsMonth = (year, month) => {
+  return Axios.get(baseUrl + '/events/by-month-year', { 
+    params: { year: year, month: month } 
+  })
+}
