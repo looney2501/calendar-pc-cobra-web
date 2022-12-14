@@ -15,7 +15,7 @@ export function EventList() {
   const [selectedEvent, setSelectedEvent] = useState({
     name: "default",
     date: new Date().toLocaleString(),
-    description: "deafult",
+    description: "default",
   });
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function EventList() {
       ) : (
         <>
           {!showEventDetails ? (
-            <div id="EventList">
+            <div id="EventList" className='event-list'>
               <ListGroup variant="flush">
                 {selectedDayEvents.map((event, index) => {
                   const color = `${colorsList[index % 3]}`;
@@ -67,7 +67,6 @@ export function EventList() {
               date={selectedEvent.date}
               description={selectedEvent.description}
               show = {setShowEventDetails}
-
             />
           )}
         </>

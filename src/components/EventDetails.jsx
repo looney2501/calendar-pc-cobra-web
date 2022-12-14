@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import "../assets/styles/EventDetails.scss";
 import moment from "moment";
+import { NotesList } from "./NotesList";
 
 function EventDetails({ name, date, description, show }) {
     const d = new Date(date);
@@ -16,6 +17,7 @@ function EventDetails({ name, date, description, show }) {
         <Card.Title>{name}</Card.Title>
         {/*<Card.Text>Location: {location}</Card.Text>*/}
         <Card.Text>Description: {description}</Card.Text>
+        <NotesList eventName={name}/>
       </Card.Body>
     </Card>
   );
