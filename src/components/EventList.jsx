@@ -8,6 +8,7 @@ import EventDetails from "./EventDetails";
 import { EventContext } from "../context/EventProvider";
 import { getEventById } from "../services/actions/eventActions";
 import { useEffect } from "react";
+import EventsAndNotesForm from "./EventsAndNotesForm";
 
 export function EventList() {
   const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents } = useContext(EventContext)
@@ -38,6 +39,7 @@ export function EventList() {
 
   return (
     <>
+    <EventsAndNotesForm></EventsAndNotesForm>
       {isLoadingDayEvents || isLoadingMonthEvents ? (
         <LoadingEffect message="Loading events" />
       ) : (
