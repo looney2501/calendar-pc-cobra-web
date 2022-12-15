@@ -14,15 +14,8 @@ export default function EventsForm({ event, setEvent }) {
         >
           <SemanticDatepicker />
         </Form.Field>
-        <Form.Field placeholder="End date"
-               onChange={(e) => {
-                setEvent.endDate(e.target.value)
-              }}
-        >
-          <SemanticDatepicker />
-        </Form.Field>
         <Form.Input
-          placeholder="Description"
+          placeholder="Location"
           value={event.location}
           onChange={(e) => {
             setEvent.setLocation(e.target.value);
