@@ -17,3 +17,7 @@ export const getEventsMonth = (year, month, username) => {
     params: { year: year, month: month }
   })
 }
+
+export const postEvent = (event) => {
+  return Axios.post(baseUrl + '/events', event)
+}

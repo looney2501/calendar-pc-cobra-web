@@ -1,26 +1,29 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import useEvent from '../hooks/useEvent'
 import EventsForm from './EventsForm'
 import NotesForm from './NotesForm'
 
 import '../assets/styles/EventAndNotes.scss'
 import { Card } from 'react-bootstrap'
+import { EventContext } from '../context/EventProvider'
 
 const EventsAndNotesForm = ({ closeAction }) => {
+  const { addEvent, selectedDay } = useContext(EventContext)
   const [notes, setNotes] = useState([
     '',
   ])
   const [event, setEvent] = useEvent()
   const prepareObjectToSendToServer = () => {
     return {
+      date: selectedDay,
       notes: [...notes],
       ...event
     }
-
   }
   const onSaveClicked = () => {
-    const res = prepareObjectToSendToServer()
-    console.log(res)
+    const newEvent = prepareObjectToSendToServer()
+    addEvent(newEvent)
+    closeAction()
   }
 
   return (

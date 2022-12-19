@@ -6,9 +6,9 @@ import {
   CHANGE_SELECTED_DAY,
   GET_EVENTS_MONTH,
   CHANGE_SELECTED_MONTH,
-  CHANGE_LOADING_MONTH_EVENTS
+  CHANGE_LOADING_MONTH_EVENTS, CHANGE_LOADING_POST_EVENT, POST_EVENT
 } from '../services/actions/actionTypes'
-import { getEventsDay, getEventsMonth } from '../services/actions/eventActions'
+import { getEventsDay, getEventsMonth, postEvent } from '../services/actions/eventActions'
 import moment from 'moment/moment'
 
 export const EventContext = React.createContext(initialState)
@@ -67,10 +67,36 @@ const EventProvider = ({ children }) => {
     }
   }
 
+  const addEventCallback = async (event) => {
+    event.username = username
+    try {
+      dispatch({ type: CHANGE_LOADING_POST_EVENT, payload: { isLoading: true } })
+      const response = await postEvent(event)
+      const newEvent = response.data
+      delete newEvent['notes']
+      const day = moment(newEvent.date).date()
+      console.log(day)
+      dispatch({ type: POST_EVENT, payload: { newEvent, day } })
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+    } finally {
+      dispatch({ type: CHANGE_LOADING_POST_EVENT, payload: { isLoading: false } })
+    }
+  }
+
   const changeSelectedDay = useCallback(changeDayCallback, [])
   const changeSelectedMonth = useCallback(changeMonthCallback, [])
+  const addEvent = useCallback(addEventCallback, [])
 
-  const value = { ...eventState, changeSelectedDay, changeSelectedMonth}
+  const value = { ...eventState, changeSelectedDay, changeSelectedMonth, addEvent}
 
   useEffect(() => {
     moment.updateLocale('en', {

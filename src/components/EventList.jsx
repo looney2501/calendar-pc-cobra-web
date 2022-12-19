@@ -12,7 +12,7 @@ import EventsAndNotesForm from './EventsAndNotesForm'
 import { BsPlusLg, BsPlusSquare } from 'react-icons/bs'
 
 export function EventList() {
-  const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents } = useContext(EventContext)
+  const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents, isLoadingAddEvent } = useContext(EventContext)
   const [showEventDetails, setShowEventDetails] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState({
     name: 'default',
@@ -31,7 +31,6 @@ export function EventList() {
     getEventById(listEventObject.id)
       .then((resp) => resp.data)
       .then((resp) => {
-        //TODO check the backend response
         setSelectedEvent(resp)
       })
       .catch((err) => console.error(err))
@@ -41,10 +40,12 @@ export function EventList() {
 
   return (
     <>
-      {isCreatingEvent ? (
-        <EventsAndNotesForm closeAction={() => setIsCreatingEvent(false)} />
-      ) : isLoadingDayEvents || isLoadingMonthEvents ? (
+      {isLoadingDayEvents || isLoadingMonthEvents ? (
         <LoadingEffect message="Loading events"/>
+      ) : isLoadingAddEvent ? (
+        <LoadingEffect message="Adding event"/>
+      ) : isCreatingEvent ? (
+        <EventsAndNotesForm closeAction={() => setIsCreatingEvent(false)} />
       ) : (
         <>
           {!showEventDetails ? (
