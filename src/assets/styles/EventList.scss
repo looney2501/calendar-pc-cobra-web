@@ -1,5 +1,15 @@
 @import 'globals.scss';
 
 .item {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.btn-add {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  background-color: $primary-blue;
+  color: white;
+  display: flex;
+  align-content: center;
 }
