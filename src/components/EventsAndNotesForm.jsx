@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import useEvent from '../hooks/useEvent'
 import EventsForm from './EventsForm'
 import NotesForm from './NotesForm'
@@ -9,22 +9,22 @@ import { EventContext } from '../context/EventProvider'
 
 const EventsAndNotesForm = ({ closeAction }) => {
   const { addEvent, selectedDay } = useContext(EventContext)
-  const [notes, setNotes] = useState([
-    '',
-  ])
+  const [notes, setNotes] = useState([''])
   const [event, setEvent] = useEvent()
-  const prepareObjectToSendToServer = () => {
+
+  const prepareObjectToSendToServer = useCallback(() => {
     return {
-      date: selectedDay,
-      notes: [...notes],
-      ...event
+      ...event,
+      date: selectedDay.format('YYYY-MM-DDThh:mm:ss'),
+      notes: [...notes]
     }
-  }
-  const onSaveClicked = () => {
+  }, [selectedDay, event, notes])
+
+  const onSaveClicked = useCallback(() => {
     const newEvent = prepareObjectToSendToServer()
     addEvent(newEvent)
     closeAction()
-  }
+  }, [prepareObjectToSendToServer])
 
   return (
     <Card border="light" style={{ width: '100%', height: '100%' }}>
