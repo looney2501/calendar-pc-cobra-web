@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useState } from "react";
 
 export default function useEvent(
-  defaultForm = { date: new Date(), location: "",startTime:"01:00", endTime:"23:00" }
+  defaultForm = { date: new Date(), location: "",startTime:"", endTime:"" }
 ) {
   const [event, setEvent] = useState(defaultForm);
   const setters = useRef(null);

@@ -10,7 +10,9 @@ const HomePage = () => {
       <div className="calendar-wrapper">
         <Calendar />
         <div className="event-list-wrapper">
-          <EventList events={[]} />
+          <EventList events={[{name: "default",
+              date: new Date().toLocaleString(),
+              description: "deafult"}]} />
         </div>
       </div>
     </div>

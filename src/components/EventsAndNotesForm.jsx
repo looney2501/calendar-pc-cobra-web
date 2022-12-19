@@ -3,11 +3,13 @@ import useEvent from "../hooks/useEvent";
 import EventsForm from "./EventsForm";
 import NotesForm from "./NotesForm";
 
+import '../assets/styles/EventAndNotes.scss'
+
 export default function EventsAndNotesForm() {
   const [notes, setNotes] = useState([
-    "ana",
     "are",
     "afa faw faf afafehebfseuff sfhsf h ufgseghgufe",
+    "afa faw faf afafehebfseuff sfhsf h ufgseghgufe afa faw faf afafehebfseuff sfhsf h ufgseghgufe nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
   ]);
   const [event, setEvent] = useEvent();
   const prepareObjectToSendToServer = () => {
@@ -25,10 +27,12 @@ export default function EventsAndNotesForm() {
   return (
     <>
       <div style={{ display: "flex", gap: "8px" }}>
-        <EventsForm event={event} setEvent={setEvent} />
+        <div>
+          <EventsForm event={event} setEvent={setEvent} />
+          <button onClick={onSaveClicked} className="save-event-button">Save</button>
+        </div>
         <NotesForm notes={notes} setNotes={setNotes} />
       </div>
-      <button onClick={onSaveClicked} style={{"border":"none"}}>Save All...</button>
     </>
   );
 }
