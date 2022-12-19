@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useState } from "react";
 
 export default function useEvent(
-  defaultForm = { startDate: new Date(), location: "" }
+  defaultForm = { date: new Date(), location: "",startTime:"01:00", endTime:"23:00" }
 ) {
   const [event, setEvent] = useState(defaultForm);
   const setters = useRef(null);
@@ -18,12 +18,22 @@ export default function useEvent(
     // Only true on first call
     setters.current = {
       setStartDate(startDate) {
-        setEvent((event) => ({ ...event, startDate }));
+        console.log(startDate);
+        setEvent((event) => ({ ...event, date:startDate }));
       },
 
       setLocation(location) {
         setEvent((event) => ({ ...event, location }));
       },
+
+      //time is string
+      setStartTime(startTime){
+        setEvent(event => ({...event,startTime}))
+      },
+      //endTime is string
+      setEndTime(endTime){
+        setEvent(event => ({...event,endTime}))
+      }
     };
   }
   return [event, setters.current];
