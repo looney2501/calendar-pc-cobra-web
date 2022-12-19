@@ -3,7 +3,7 @@ import "../assets/styles/EventDetails.scss";
 import moment from "moment";
 import { NotesList } from "./NotesList";
 
-function EventDetails({ name, notes, date, description, show }) {
+function EventDetails({ name, notes, date, description, show, startTime, endTime }) {
     const d = new Date(date);
     const formattedDate = moment(d, true).format('DD/MM/YYYY hh:mm');
 
@@ -17,6 +17,8 @@ function EventDetails({ name, notes, date, description, show }) {
           <Card.Title>{name}</Card.Title>
           {/*<Card.Text>Location: {location}</Card.Text>*/}
           <Card.Text>Description: {description}</Card.Text>
+          <Card.Text>Start time: {startTime}</Card.Text>
+          <Card.Text>End time: {endTime}</Card.Text>
           <NotesList eventNotes={notes}/>
         </Card.Body>
       </Card>

@@ -67,7 +67,9 @@ export function EventList() {
               notes={selectedEvent.notes}
               date={selectedEvent.date}
               description={selectedEvent.description}
-              show = {setShowEventDetails}
+              show={setShowEventDetails}
+              startTime={selectedEvent.startTime}
+              endTime={selectedEvent.endTime}
             />
           )}
         </>
