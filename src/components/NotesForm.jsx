@@ -12,8 +12,6 @@ export default function NotesForm({notes, setNotes}) {
     const textRef = React.useRef();
     const value = React.useState();
     React.useEffect(() => {
-        console.log(textRef )
-        console.log(textRef.current)
         if (textRef && textRef.current) {
             textRef.current.style.height = "0px";
             const taHeight = textRef.current.scrollHeight;

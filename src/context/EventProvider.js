@@ -13,6 +13,8 @@ import moment from 'moment/moment'
 
 export const EventContext = React.createContext(initialState)
 
+const username = 'mircea2501@gmail.com'
+
 const EventProvider = ({ children }) => {
   const [eventState, dispatch] = useReducer(reducer, initialState)
 
@@ -23,7 +25,7 @@ const EventProvider = ({ children }) => {
       var month = newDayMoment.format('M')
       var day   = newDayMoment.format('D')
       var year  = newDayMoment.format('YYYY')
-      const response = await getEventsDay(year, month, day)
+      const response = await getEventsDay(year, month, day, username)
       const dayEvents = response.data
       dispatch({ type: GET_EVENTS_DAY, payload: { dayEvents: dayEvents } })
     } catch (error) {
@@ -47,7 +49,7 @@ const EventProvider = ({ children }) => {
       dispatch({ type: CHANGE_LOADING_MONTH_EVENTS, payload: { isLoading: true } })
       var month = newMonth.format('M')
       var year = newMonth.format('YYYY')
-      const response = await getEventsMonth(year, month)
+      const response = await getEventsMonth(year, month, username)
       const monthEvents = response.data
       dispatch({ type: GET_EVENTS_MONTH, payload: { monthEvents: monthEvents } })
     } catch (error) {

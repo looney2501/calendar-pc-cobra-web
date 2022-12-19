@@ -1,38 +1,45 @@
-import { useState } from "react";
-import useEvent from "../hooks/useEvent";
-import EventsForm from "./EventsForm";
-import NotesForm from "./NotesForm";
+import { useState } from 'react'
+import useEvent from '../hooks/useEvent'
+import EventsForm from './EventsForm'
+import NotesForm from './NotesForm'
 
 import '../assets/styles/EventAndNotes.scss'
+import { Card } from 'react-bootstrap'
 
-export default function EventsAndNotesForm() {
+const EventsAndNotesForm = ({ closeAction }) => {
   const [notes, setNotes] = useState([
-    "are",
-    "afa faw faf afafehebfseuff sfhsf h ufgseghgufe",
-    "afa faw faf afafehebfseuff sfhsf h ufgseghgufe afa faw faf afafehebfseuff sfhsf h ufgseghgufe nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
-  ]);
-  const [event, setEvent] = useEvent();
+    '',
+  ])
+  const [event, setEvent] = useEvent()
   const prepareObjectToSendToServer = () => {
     return {
-      notes:[...notes],
+      notes: [...notes],
       ...event
     }
 
   }
   const onSaveClicked = () => {
     const res = prepareObjectToSendToServer()
-      console.log(res);
+    console.log(res)
   }
 
   return (
-    <>
-      <div style={{ display: "flex", gap: "8px" }}>
-        <div>
-          <EventsForm event={event} setEvent={setEvent} />
-          <button onClick={onSaveClicked} className="save-event-button">Save</button>
+    <Card border="light" style={{ width: '100%', height: '100%' }}>
+      <Card.Header className="details-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
+        Create a new event
+        <button className="btn-close" onClick={closeAction}/>
+      </Card.Header>
+      <Card.Body className="details-body">
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <div>
+            <EventsForm event={event} setEvent={setEvent}/>
+            <button onClick={onSaveClicked} className="save-event-button">Save</button>
+          </div>
+          <NotesForm notes={notes} setNotes={setNotes}/>
         </div>
-        <NotesForm notes={notes} setNotes={setNotes} />
-      </div>
-    </>
-  );
+      </Card.Body>
+    </Card>
+  )
 }
+
+export default EventsAndNotesForm
