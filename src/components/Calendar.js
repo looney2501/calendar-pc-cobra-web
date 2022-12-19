@@ -41,7 +41,7 @@ const Calendar = () => {
                               ` ${d.toString() === selectedDay.format('D') && selectedMonth.format('M Y') === selectedDay.format('M Y') ? 'selected' : ''}`}>
           <div className='calendar-day-wrapper' onClick={() => changeSelectedDay(moment(selectedMonth.date(d))) }>
             <div className='calendar-day'>
-              <div className='calendar-day-circle'>
+              <div className='calecndar-day-circle'>
                 {d}
               </div>
             </div>
