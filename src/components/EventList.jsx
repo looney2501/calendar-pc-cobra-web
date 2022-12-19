@@ -21,14 +21,13 @@ export function EventList() {
   useEffect(() => {
     setShowEventDetails(false);
   }, [selectedDayEvents]);
-  
+
   const onEventClick = (listEventObject) => {
     setShowEventDetails(!showEventDetails);
 
     getEventById(listEventObject.id)
       .then((resp) => resp.data)
       .then((resp) => {
-        //TODO check the backend response
         setSelectedEvent(resp);
       })
       .catch((err) => console.error(err));
