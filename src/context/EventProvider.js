@@ -3,18 +3,20 @@ import React, { useCallback, useEffect, useReducer } from 'react'
 import {
   GET_EVENTS_DAY,
   GET_EVENTS_MONTH,
-  GET_NOTES_EVENT,
+  GET_EVENT,
   CHANGE_SELECTED_DAY,
   CHANGE_SELECTED_MONTH,
   CHANGE_SELECTED_EVENT,
   CHANGE_LOADING_DAY_EVENTS,
   CHANGE_LOADING_MONTH_EVENTS,
-  CHANGE_LOADING_EVENT_NOTES,
+  CHANGE_LOADING_EVENT
 } from '../services/actions/actionTypes'
-import { getEventsDay, getEventsMonth, getNotesEvent } from '../services/actions/eventActions'
+import { getEventById, getEventsDay, getEventsMonth } from '../services/actions/eventActions'
 import moment from 'moment/moment'
 
 export const EventContext = React.createContext(initialState)
+
+const username = 'edi'
 
 const EventProvider = ({ children }) => {
   const [eventState, dispatch] = useReducer(reducer, initialState)
@@ -22,10 +24,10 @@ const EventProvider = ({ children }) => {
   const changeEventCallback = async (newEvent) => {
     dispatch({ type: CHANGE_SELECTED_EVENT, payload: { selectedEvent: newEvent } })
     try {
-      dispatch({ type: CHANGE_LOADING_EVENT_NOTES, payload: { isLoading: true } })
-      const response = await getNotesEvent(newEvent.id)
-      const eventNotes = response.data
-      dispatch({ type: GET_NOTES_EVENT, payload: { eventNotes: eventNotes } })
+      dispatch({ type: CHANGE_LOADING_EVENT, payload: { isLoading: true } })
+      const response = await getEventById(newEvent.id)
+      const eventNotes = response.data.eventNotes
+      dispatch({ type: GET_EVENT, payload: { eventNotes: eventNotes } })
     } catch (error) {
       if (error.response) {
         console.log(error.response.data)
@@ -37,7 +39,7 @@ const EventProvider = ({ children }) => {
         console.log('Error', error.message)
       }
     } finally {
-      dispatch({ type: CHANGE_LOADING_EVENT_NOTES, payload: { isLoading: false } })
+      dispatch({ type: CHANGE_LOADING_EVENT, payload: { isLoading: false } })
     }
   }
 
@@ -48,7 +50,7 @@ const EventProvider = ({ children }) => {
       var month = newDayMoment.format('M')
       var day   = newDayMoment.format('D')
       var year  = newDayMoment.format('YYYY')
-      const response = await getEventsDay(year, month, day)
+      const response = await getEventsDay(year, month, day, username)
       const dayEvents = response.data
       dispatch({ type: GET_EVENTS_DAY, payload: { dayEvents: dayEvents } })
     } catch (error) {
@@ -72,7 +74,7 @@ const EventProvider = ({ children }) => {
       dispatch({ type: CHANGE_LOADING_MONTH_EVENTS, payload: { isLoading: true } })
       var month = newMonth.format('M')
       var year = newMonth.format('YYYY')
-      const response = await getEventsMonth(year, month)
+      const response = await getEventsMonth(year, month, username)
       const monthEvents = response.data
       dispatch({ type: GET_EVENTS_MONTH, payload: { monthEvents: monthEvents } })
     } catch (error) {

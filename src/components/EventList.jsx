@@ -49,6 +49,7 @@ export function EventList() {
                   const color = `${colorsList[index % 3]}`;
                   return (
                     <ListGroup.Item
+                      key={index}
                       className="item"
                       style={{ backgroundColor: color }}
                       onClick={() => onEventClick(event)}
@@ -64,6 +65,7 @@ export function EventList() {
           ) : (
             <EventDetails
               name={selectedEvent.name}
+              notes={selectedEvent.notes}
               date={selectedEvent.date}
               description={selectedEvent.description}
               show = {setShowEventDetails}
