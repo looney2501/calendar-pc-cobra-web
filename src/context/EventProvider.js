@@ -2,16 +2,18 @@ import { initialState, reducer } from '../services/reducers/eventReducer'
 import React, { useCallback, useEffect, useReducer } from 'react'
 import {
   GET_EVENTS_DAY,
-  CHANGE_LOADING_DAY_EVENTS,
-  CHANGE_SELECTED_DAY,
   GET_EVENTS_MONTH,
+  CHANGE_SELECTED_DAY,
   CHANGE_SELECTED_MONTH,
+  CHANGE_LOADING_DAY_EVENTS,
   CHANGE_LOADING_MONTH_EVENTS
 } from '../services/actions/actionTypes'
-import { getEventsDay, getEventsMonth } from '../services/actions/eventActions'
+import { getEventById, getEventsDay, getEventsMonth } from '../services/actions/eventActions'
 import moment from 'moment/moment'
 
 export const EventContext = React.createContext(initialState)
+
+const username = 'mircea2501@gmail.com'
 
 const EventProvider = ({ children }) => {
   const [eventState, dispatch] = useReducer(reducer, initialState)
@@ -23,7 +25,7 @@ const EventProvider = ({ children }) => {
       var month = newDayMoment.format('M')
       var day   = newDayMoment.format('D')
       var year  = newDayMoment.format('YYYY')
-      const response = await getEventsDay(year, month, day)
+      const response = await getEventsDay(year, month, day, username)
       const dayEvents = response.data
       dispatch({ type: GET_EVENTS_DAY, payload: { dayEvents: dayEvents } })
     } catch (error) {
@@ -47,7 +49,7 @@ const EventProvider = ({ children }) => {
       dispatch({ type: CHANGE_LOADING_MONTH_EVENTS, payload: { isLoading: true } })
       var month = newMonth.format('M')
       var year = newMonth.format('YYYY')
-      const response = await getEventsMonth(year, month)
+      const response = await getEventsMonth(year, month, username)
       const monthEvents = response.data
       dispatch({ type: GET_EVENTS_MONTH, payload: { monthEvents: monthEvents } })
     } catch (error) {
@@ -68,7 +70,7 @@ const EventProvider = ({ children }) => {
   const changeSelectedDay = useCallback(changeDayCallback, [])
   const changeSelectedMonth = useCallback(changeMonthCallback, [])
 
-  const value = { ...eventState, changeSelectedDay, changeSelectedMonth}
+  const value = { ...eventState, changeSelectedDay, changeSelectedMonth }
 
   useEffect(() => {
     moment.updateLocale('en', {

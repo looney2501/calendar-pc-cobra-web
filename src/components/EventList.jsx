@@ -15,20 +15,19 @@ export function EventList() {
   const [selectedEvent, setSelectedEvent] = useState({
     name: "default",
     date: new Date().toLocaleString(),
-    description: "deafult",
+    description: "default",
   });
 
   useEffect(() => {
     setShowEventDetails(false);
   }, [selectedDayEvents]);
-  
+
   const onEventClick = (listEventObject) => {
     setShowEventDetails(!showEventDetails);
 
     getEventById(listEventObject.id)
       .then((resp) => resp.data)
       .then((resp) => {
-        //TODO check the backend response
         setSelectedEvent(resp);
       })
       .catch((err) => console.error(err));
@@ -43,12 +42,13 @@ export function EventList() {
       ) : (
         <>
           {!showEventDetails ? (
-            <div id="EventList">
+            <div id="EventList" className='event-list'>
               <ListGroup variant="flush">
                 {selectedDayEvents.map((event, index) => {
                   const color = `${colorsList[index % 3]}`;
                   return (
                     <ListGroup.Item
+                      key={index}
                       className="item"
                       style={{ backgroundColor: color }}
                       onClick={() => onEventClick(event)}
@@ -64,10 +64,10 @@ export function EventList() {
           ) : (
             <EventDetails
               name={selectedEvent.name}
+              notes={selectedEvent.notes}
               date={selectedEvent.date}
               description={selectedEvent.description}
               show = {setShowEventDetails}
-
             />
           )}
         </>
