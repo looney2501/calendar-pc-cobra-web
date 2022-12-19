@@ -2,11 +2,11 @@ import { initialState, reducer } from '../services/reducers/eventReducer'
 import React, { useCallback, useEffect, useReducer } from 'react'
 import {
   GET_EVENTS_DAY,
-  CHANGE_LOADING_DAY_EVENTS,
-  CHANGE_SELECTED_DAY,
   GET_EVENTS_MONTH,
+  CHANGE_SELECTED_DAY,
   CHANGE_SELECTED_MONTH,
   CHANGE_LOADING_MONTH_EVENTS, CHANGE_LOADING_POST_EVENT, POST_EVENT
+  CHANGE_LOADING_DAY_EVENTS
 } from '../services/actions/actionTypes'
 import { getEventsDay, getEventsMonth, postEvent } from '../services/actions/eventActions'
 import moment from 'moment/moment'

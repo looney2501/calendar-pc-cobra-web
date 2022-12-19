@@ -1,15 +1,13 @@
-import { ListGroup } from 'react-bootstrap'
-import { MdEventNote } from 'react-icons/md'
-import '../assets/styles/EventList.scss'
-import '../assets/styles/globals.scss'
-import { useContext, useState } from 'react'
-import LoadingEffect from './LoadingEffect'
-import EventDetails from './EventDetails'
-import { EventContext } from '../context/EventProvider'
-import { getEventById } from '../services/actions/eventActions'
-import { useEffect } from 'react'
-import EventsAndNotesForm from './EventsAndNotesForm'
-import { BsPlusLg, BsPlusSquare } from 'react-icons/bs'
+import { ListGroup } from "react-bootstrap";
+import { MdEventNote } from "react-icons/md";
+import "../assets/styles/EventList.scss";
+import "../assets/styles/globals.scss";
+import { useContext, useState } from "react";
+import LoadingEffect from "./LoadingEffect";
+import EventDetails from "./EventDetails";
+import { EventContext } from "../context/EventProvider";
+import { getEventById } from "../services/actions/eventActions";
+import { useEffect } from "react";
 
 export function EventList() {
   const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents, isLoadingAddEvent } = useContext(EventContext)
@@ -49,32 +47,29 @@ export function EventList() {
       ) : (
         <>
           {!showEventDetails ? (
-            <>
-              <div id="EventList">
-                <ListGroup variant="flush">
-                  {selectedDayEvents.map((event, index) => {
-                    const color = `${colorsList[index % 3]}`
-                    return (
-                      <ListGroup.Item
-                        className="item"
-                        style={{ backgroundColor: color }}
-                        onClick={() => onEventClick(event)}
-                      >
-                        <MdEventNote/>
-                        <span> </span>
-                        {event.name}
-                      </ListGroup.Item>
-                    )
-                  })}
-                </ListGroup>
-              </div>
-              <button className="btn btn-add" onClick={() => {setIsCreatingEvent(true)}}>
-                <BsPlusLg size={30}/>
-              </button>
-            </>
+            <div id="EventList" className='event-list'>
+              <ListGroup variant="flush">
+                {selectedDayEvents.map((event, index) => {
+                  const color = `${colorsList[index % 3]}`;
+                  return (
+                    <ListGroup.Item
+                      key={index}
+                      className="item"
+                      style={{ backgroundColor: color }}
+                      onClick={() => onEventClick(event)}
+                    >
+                      <MdEventNote />
+                      <span> </span>
+                      {event.name}
+                    </ListGroup.Item>
+                  );
+                })}
+              </ListGroup>
+            </div>
           ) : (
             <EventDetails
               name={selectedEvent.name}
+              notes={selectedEvent.notes}
               date={selectedEvent.date}
               description={selectedEvent.description}
               show={setShowEventDetails}
