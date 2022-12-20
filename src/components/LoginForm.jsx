@@ -22,14 +22,14 @@ const LoginForm = ({ loginCallback }) => {
   }
 
   return (
-    <div id="LoginForm">
+    <div id="LoginForm" className='d-flex flex-column'>
       <div className="username-wrapper">
         <label>Username:</label>
-        <input type="text" placeholder="username" onChange={handleUsernameInputChange} value={username}/>
+        <input className='input' type="text" placeholder="username" onChange={handleUsernameInputChange} value={username}/>
       </div>
       <div className="password-wrapper">
         <label>Password:</label>
-        <input type="password" placeholder="password" onChange={handlePasswordInputChange} value={password}/>
+        <input className='input' type="password" placeholder="password" onChange={handlePasswordInputChange} value={password}/>
       </div>
       <button className="btn btn-login" onClick={handleLoginButtonClick}>Log in</button>
     </div>

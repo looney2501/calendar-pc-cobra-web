@@ -1,6 +1,15 @@
 @import "globals";
 
-.btn-login {
-  background-color: $primary-blue;
-  color: white;
+#LoginForm {
+  width: fit-content;
+
+  .input {
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+
+  .btn-login {
+    background-color: $primary-blue;
+    color: white;
+  }
 }

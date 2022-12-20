@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   return (
     <div id="LoginPage" className="h-100">
-      <div className='login-wrapper'>
+      <div className='login-wrapper d-flex flex-column justify-content-center align-items-center h-100'>
         <LoginForm loginCallback={login} />
         {error && (
           <div className='error'>
