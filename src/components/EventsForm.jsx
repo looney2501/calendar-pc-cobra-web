@@ -1,5 +1,4 @@
 import { Form } from 'semantic-ui-react'
-import SemanticDatepicker from 'react-semantic-ui-datepickers'
 import '../assets/styles/EventForm.scss'
 
 export default function EventsForm({ event, setEvent }) {

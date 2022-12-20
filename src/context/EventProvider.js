@@ -1,5 +1,5 @@
 import { initialState, reducer } from '../services/reducers/eventReducer'
-import React, { useCallback, useEffect, useReducer } from 'react'
+import React, { useCallback, useContext, useEffect, useReducer } from 'react'
 import {
   GET_EVENTS_DAY,
   GET_EVENTS_MONTH,
@@ -10,13 +10,13 @@ import {
 } from '../services/actions/actionTypes'
 import { getEventsDay, getEventsMonth, postEvent } from '../services/actions/eventActions'
 import moment from 'moment/moment'
+import { AuthContext } from './AuthProvider'
 
 export const EventContext = React.createContext(initialState)
 
-const username = 'mircea2501@gmail.com'
-
 const EventProvider = ({ children }) => {
   const [eventState, dispatch] = useReducer(reducer, initialState)
+  const { token: username } = useContext(AuthContext)
 
   const changeDayCallback = async (newDayMoment) => {
     dispatch({ type: CHANGE_SELECTED_DAY, payload: { selectedDay: newDayMoment } })

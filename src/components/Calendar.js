@@ -33,6 +33,8 @@ const Calendar = () => {
     return blanks
   }, [selectedMonth])
 
+  console.log(currentDay.format("D"))
+
   const getMonthDays = useCallback(() => {
     let daysInMonth = []
     for (let d = 1; d <= noDaysInMonth(); d++) {
@@ -41,7 +43,7 @@ const Calendar = () => {
                               ` ${d.toString() === selectedDay.format('D') && selectedMonth.format('M Y') === selectedDay.format('M Y') ? 'selected' : ''}`}>
           <div className='calendar-day-wrapper' onClick={() => changeSelectedDay(moment(selectedMonth.date(d))) }>
             <div className='calendar-day'>
-              <div className='calecndar-day-circle'>
+              <div className='calendar-day-circle'>
                 {d}
               </div>
             </div>
