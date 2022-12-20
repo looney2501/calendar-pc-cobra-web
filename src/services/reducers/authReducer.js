@@ -10,7 +10,7 @@ export const initialState = {
 export const reducer = (state, action) => {
   switch (action.type) {
     case LOG_IN:
-      return { ...state, token: action.payload.token, isAuthenticated: true }
+      return { ...state, token: action.payload.token, isAuthenticated: true, error: null }
     case LOG_IN_ERROR:
       return { ...state, error: action.payload.error }
     case LOG_OUT:

@@ -33,6 +33,8 @@ const Calendar = () => {
     return blanks
   }, [selectedMonth])
 
+  console.log(currentDay.format("D"))
+
   const getMonthDays = useCallback(() => {
     let daysInMonth = []
     for (let d = 1; d <= noDaysInMonth(); d++) {

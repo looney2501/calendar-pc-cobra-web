@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import "../assets/styles/LoginForm.scss"
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
-const LoginForm = ({ loginCallback }) => {
+const LoginForm = ({ loginCallback, isAuthenticated }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,7 +18,12 @@ const LoginForm = ({ loginCallback }) => {
 
   const handleLoginButtonClick = () => {
     loginCallback(username, password)
-    navigate('/calendar')
+  }
+
+  if (isAuthenticated) {
+    return (
+      <Navigate to="/calendar" />
+    )
   }
 
   return (
