@@ -1,12 +1,10 @@
 import { initialState, reducer } from '../services/reducers/authReducer'
-import { useCallback, useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import {
   CHANGE_LOADING_LOG_IN,
-  CHANGE_LOADING_MONTH_EVENTS,
-  CHANGE_SELECTED_MONTH,
-  GET_EVENTS_MONTH, LOG_IN
+  LOG_IN,
+  LOG_IN_ERROR, LOG_OUT
 } from '../services/actions/actionTypes'
-import { getEventsMonth } from '../services/actions/eventActions'
 import { postLogin } from '../services/actions/authActions'
 
 export const AuthContext = React.createContext(initialState)
@@ -38,9 +36,14 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  const login = useCallback(loginCallback, [])
+  const logoutCallback = () => {
+    dispatch({ type: LOG_OUT })
+  }
 
-  const value = { ...authState, login }
+  const login = useCallback(loginCallback, [])
+  const logout = useCallback(logoutCallback, [])
+
+  const value = { ...authState, login, logout }
 
   return (
     <AuthContext.Provider value={value}>

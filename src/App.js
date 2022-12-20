@@ -14,7 +14,7 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/login" component={LoginPage}/>
+          <Route exact path="/login" element={<LoginPage />}/>
           <Route exact path="/calendar" element={(
             <PrivateRoute>
               <EventProvider>
