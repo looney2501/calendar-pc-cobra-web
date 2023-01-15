@@ -1,9 +1,15 @@
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react-17'
 import { useEffect, useState } from 'react'
 import "../assets/styles/EventsMap.scss"
+import markerPng from "../assets/images/marker.png"
 
 const EventsMap = (props) => {
   const [initialLocation, setInitialLocation] = useState({ lng: 0, lat: 0 })
+
+  const markerImage = {
+    scaledSize: new props.google.maps.Size(40, 35),
+    url: markerPng
+  }
 
   const containerStyle = {
     position: 'relative',
@@ -34,6 +40,7 @@ const EventsMap = (props) => {
     >
       {props.markers && props.markers.map((marker, i) =>
         <Marker key={i}
+          icon={markerImage}
           position={{
             lat: marker.lat,
             lng: marker.lng
