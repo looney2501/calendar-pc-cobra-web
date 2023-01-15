@@ -10,7 +10,7 @@ const HomePage = () => {
     <div id="HomePage" className="h-100">
       <Header />
       <div className="calendar-wrapper">
-        {/*<Calendar />*/}
+        <Calendar />
         <AllEventsMap />
         <div className="event-list-wrapper">
           <EventList events={[{name: "default",

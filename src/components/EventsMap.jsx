@@ -31,7 +31,12 @@ const EventsMap = (props) => {
       center={initialLocation}
       containerStyle={containerStyle}
     >
-
+      {props.markers && props.markers.map((marker, i) =>
+        <Marker
+          key={i}
+          position={{ lat: marker.lat, lng: marker.lng }}
+        />
+      )}
     </Map>
   )
 }
