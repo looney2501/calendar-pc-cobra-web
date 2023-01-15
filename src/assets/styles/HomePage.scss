@@ -2,11 +2,11 @@
   height: calc(100vh - 60px);
   display: flex;
 
-  & > div:first-of-type {
+  #Calendar {
     flex-basis: 50vw;
   }
 
-  #Calendar {
+  #AllEventsMap {
     flex-basis: 50vw;
   }
 

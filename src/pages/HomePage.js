@@ -3,6 +3,7 @@ import Calendar from "../components/Calendar";
 import "../assets/styles/HomePage.scss";
 import { EventList } from "../components/EventList";
 import EventsMap from '../components/EventsMap'
+import AllEventsMap from '../components/AllEventsMap'
 
 const HomePage = () => {
   return (
@@ -10,7 +11,7 @@ const HomePage = () => {
       <Header />
       <div className="calendar-wrapper">
         {/*<Calendar />*/}
-        <EventsMap />
+        <AllEventsMap />
         <div className="event-list-wrapper">
           <EventList events={[{name: "default",
               date: new Date().toLocaleString(),

@@ -7,10 +7,9 @@ import { EventContext } from '../context/EventProvider'
 
 const Calendar = () => {
   const weekdaysShort = useMemo(() => getWeekdaysShort(), [])
-  const currentDay = useMemo(() => moment(), [])
   const noEventsShownPerDay = 2;
 
-  const { selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth, isLoadingMonthEvents } = useContext(EventContext)
+  const { currentDay, selectedDay, selectedMonth, selectedMonthEvents, changeSelectedDay, changeSelectedMonth, isLoadingMonthEvents } = useContext(EventContext)
 
   const firstDayOfMonth = useCallback(() => {
     return (Number.parseInt(selectedMonth

@@ -20,6 +20,9 @@ const EventProvider = ({ children }) => {
 
   const changeDayCallback = async (newDayMoment) => {
     dispatch({ type: CHANGE_SELECTED_DAY, payload: { selectedDay: newDayMoment } })
+    if (newDayMoment.month() !== eventState.selectedMonth.month()) {
+      dispatch({ type: CHANGE_SELECTED_MONTH, payload: { selectedMonth: newDayMoment } })
+    }
     try {
       dispatch({ type: CHANGE_LOADING_DAY_EVENTS, payload: { isLoading: true } })
       var month = newDayMoment.format('M')

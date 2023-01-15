@@ -4,7 +4,6 @@ import "../assets/styles/EventsMap.scss"
 
 const EventsMap = (props) => {
   const [initialLocation, setInitialLocation] = useState({ lng: 0, lat: 0 })
-  console.log(initialLocation)
 
   const containerStyle = {
     position: 'relative',
@@ -24,20 +23,6 @@ const EventsMap = (props) => {
   }, [])
 
   return (
-    // <div className='map-wrapper'>
-    //   <div className='map-container'>
-    //     <Map
-    //       google={props.google}
-    //       zoom={13}
-    //       streetViewControl={false}
-    //       fullScreenControl={false}
-    //       center={initialLocation}
-    //       containerStyle={containerStyle}
-    //     >
-    //
-    //     </Map>
-    //   </div>
-    // </div>
     <Map
       google={props.google}
       zoom={13}

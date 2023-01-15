@@ -12,6 +12,7 @@ export const initialState = {
   selectedMonth: moment(),
   selectedMonthEvents: [],
   selectedDay: moment(),
+  currentDay: moment(),
   selectedDayEvents: [],
   isLoadingDayEvents: false,
   isLoadingMonthEvents: false,
