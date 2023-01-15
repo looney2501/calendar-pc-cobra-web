@@ -1,9 +1,9 @@
 import { CHANGE_LOADING_LOG_IN, LOG_IN, LOG_IN_ERROR, LOG_OUT } from '../actions/actionTypes'
 
 export const initialState = {
-  token: '',
+  token: 'eduardcadar@yahoo.com',
   isLoading: false,
-  isAuthenticated: false,
+  isAuthenticated: true,
   error: null
 }
 

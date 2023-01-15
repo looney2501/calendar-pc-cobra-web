@@ -2,13 +2,15 @@
   height: calc(100vh - 60px);
   display: flex;
 
+  & > div:first-of-type {
+    flex-basis: 50vw;
+  }
+
   #Calendar {
-    //flex-grow: 1;
     flex-basis: 50vw;
   }
 
   .event-list-wrapper {
-    //flex-grow: 1;
     flex-basis: 50vw;
   }
 }
