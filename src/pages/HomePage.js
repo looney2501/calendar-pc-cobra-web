@@ -4,14 +4,18 @@ import "../assets/styles/HomePage.scss";
 import { EventList } from "../components/EventList";
 import EventsMap from '../components/EventsMap'
 import AllEventsMap from '../components/AllEventsMap'
+import { useState } from 'react'
 
 const HomePage = () => {
+  const [calendarStyle, setCalendarStyle] = useState('calendar')
+
+  console.log(calendarStyle)
+
   return (
     <div id="HomePage" className="h-100">
-      <Header />
+      <Header calendarStyle={calendarStyle} changeCalendarStyle={setCalendarStyle} />
       <div className="calendar-wrapper">
-        <Calendar />
-        <AllEventsMap />
+        {calendarStyle === 'calendar' ? <Calendar /> : <AllEventsMap />}
         <div className="event-list-wrapper">
           <EventList events={[{name: "default",
               date: new Date().toLocaleString(),
