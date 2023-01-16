@@ -11,14 +11,8 @@ import { useEffect } from 'react'
 import EventsAndNotesForm from './EventsAndNotesForm'
 import { BsPlusLg } from 'react-icons/bs'
 
-export function EventList() {
+export function EventList({ showEventDetails, setShowEventDetails, selectedEvent, setSelectedEvent }) {
   const { selectedDayEvents, isLoadingDayEvents, isLoadingMonthEvents, isLoadingAddEvent } = useContext(EventContext)
-  const [showEventDetails, setShowEventDetails] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState({
-    name: 'default',
-    date: new Date().toLocaleString(),
-    description: 'deafult',
-  })
   const [isCreatingEvent, setIsCreatingEvent] = useState(false)
 
   useEffect(() => {
@@ -26,7 +20,7 @@ export function EventList() {
   }, [selectedDayEvents])
 
   const onEventClick = (listEventObject) => {
-    setShowEventDetails(!showEventDetails)
+    setShowEventDetails(true)
 
     getEventById(listEventObject.id)
       .then((resp) => resp.data)

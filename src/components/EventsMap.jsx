@@ -39,8 +39,10 @@ const EventsMap = (props) => {
       onClick={props.onMapClick}
     >
       {props.markers && props.markers.map((marker, i) =>
-        <Marker key={i}
+        <Marker
+          key={i}
           icon={markerImage}
+          onClick={props.onClickMarker ? () => {props.onClickMarker(marker.event)} : null}
           position={{
             lat: marker.lat,
             lng: marker.lng
