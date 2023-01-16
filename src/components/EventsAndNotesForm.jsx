@@ -12,18 +12,21 @@ const EventsAndNotesForm = ({ closeAction }) => {
   const { addEvent, selectedDay } = useContext(EventContext)
   const [notes, setNotes] = useState([''])
   const [event, setEvent] = useEvent()
-  const [mapMarker, setMapMarker] = useState({ lat: 0, lng: 0 });
+  const [mapMarker, setMapMarker] = useState({})
+  const [addLocation, setAddLocation] = useState(false)
 
   useEffect(async () => {
-    await navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setMapMarker({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        })
-      }
-    )
-  }, [])
+    if (addLocation) {
+      await navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setMapMarker({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          })
+        }
+      )
+    }
+  }, [addLocation])
 
   const prepareObjectToSendToServer = useCallback(() => {
     return {
@@ -43,7 +46,7 @@ const EventsAndNotesForm = ({ closeAction }) => {
     setMapMarker({
       lat: coord.latLng.lat(),
       lng: coord.latLng.lng()
-    });
+    })
     setEvent.setLatitude(mapMarker.lat)
     setEvent.setLongitude(mapMarker.lng)
   }
@@ -52,17 +55,25 @@ const EventsAndNotesForm = ({ closeAction }) => {
     <Card border="light" style={{ width: '100%', height: '100%' }}>
       <Card.Header className="details-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
         Create a new event
-        <button className="btn-close" onClick={closeAction} />
+        <button className="btn-close" onClick={closeAction}/>
       </Card.Header>
       <Card.Body className="details-body">
         <div style={{ display: 'flex', gap: '8px' }}>
           <div>
-            <EventsForm event={event} setEvent={setEvent} />
+            <EventsForm event={event} setEvent={setEvent}/>
             <button onClick={onSaveClicked} className="save-event-button">Save</button>
           </div>
-          <NotesForm notes={notes} setNotes={setNotes} />
+          <NotesForm notes={notes} setNotes={setNotes}/>
         </div>
-        <EventsMap onMapClick={onMapClick} markers={[mapMarker]} />
+        <label className="add-location-label">
+          <input id="addLocationInput" type="checkbox" onClick={() => {
+            setAddLocation(!addLocation)
+          }}/>
+          Add location for event
+        </label>
+        {addLocation && (
+          <EventsMap onMapClick={onMapClick} markers={[mapMarker]}/>
+        )}
       </Card.Body>
     </Card>
   )

@@ -78,7 +78,6 @@ const EventProvider = ({ children }) => {
       const newEvent = response.data
       delete newEvent['notes']
       const day = moment(newEvent.date).date()
-      console.log(day)
       dispatch({ type: POST_EVENT, payload: { newEvent, day } })
     } catch (error) {
       if (error.response) {
