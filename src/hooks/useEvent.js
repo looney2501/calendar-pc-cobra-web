@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useState } from 'react'
 
 export default function useEvent(
-  defaultForm = { name: '' , location: '', startTime: '', endTime: '' }
+  defaultForm = { name: '', startTime: '', endTime: '' }
 ) {
   const [event, setEvent] = useState(defaultForm)
   const setters = useRef(null)
@@ -31,6 +31,12 @@ export default function useEvent(
       //endTime is string
       setEndTime(endTime) {
         setEvent(event => ({ ...event, endTime }))
+      },
+      setLatitude(latitude) {
+        setEvent(event => ({ ...event, latitude }))
+      },
+      setLongitude(longitude) {
+        setEvent(event => ({ ...event, longitude }))
       }
     }
   }

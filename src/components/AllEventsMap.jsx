@@ -6,19 +6,23 @@ import { EventContext } from '../context/EventProvider'
 import "../assets/styles/AllEventsMap.scss"
 import { Marker } from 'google-maps-react-17'
 
-const AllEventsMap = () => {
+const AllEventsMap = ({ setShowEventDetails, setSelectedEvent }) => {
   const {
     selectedDay,
     selectedDayEvents,
     changeSelectedDay,
-    changeSelectedMonth,
   } = useContext(EventContext)
 
   const getMarkersFromEvents = useCallback(() => {
     return selectedDayEvents.map((e) => {
-      return { lat: e.latitude, lng: e.longitude }
+      return { lat: e.latitude, lng: e.longitude, event: e }
     })
   }, [selectedDayEvents])
+
+  const handleMarkerClick = (event) => {
+    setShowEventDetails(true)
+    setSelectedEvent(event)
+  }
 
   return (
     <div id="AllEventsMap" className="d-flex flex-column">
@@ -33,7 +37,7 @@ const AllEventsMap = () => {
           <SlArrowRight className="next-month-button" />
         </button>
       </div>
-      <EventsMap markers={getMarkersFromEvents()}/>
+      <EventsMap markers={getMarkersFromEvents()} onClickMarker={handleMarkerClick} />
     </div>
   )
 }

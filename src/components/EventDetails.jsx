@@ -15,7 +15,6 @@ function EventDetails({ name, notes, date, description, show, startTime, endTime
         </Card.Header>
         <Card.Body className="details-body">
           <Card.Title>{name}</Card.Title>
-          {/*<Card.Text>Location: {location}</Card.Text>*/}
           <Card.Text>Description: {description}</Card.Text>
           <Card.Text>Start time: {startTime}</Card.Text>
           <Card.Text>End time: {endTime}</Card.Text>
