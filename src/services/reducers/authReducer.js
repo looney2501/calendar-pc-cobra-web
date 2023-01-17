@@ -1,8 +1,7 @@
 import { CHANGE_LOADING_LOG_IN, LOG_IN, LOG_IN_ERROR, LOG_OUT } from '../actions/actionTypes'
 
 export const initialState = {
-  //TODO remove
-  token: 'eduardcadar@yahoo.com',
+  token: '',
   isLoading: false,
   isAuthenticated: false,
   error: null

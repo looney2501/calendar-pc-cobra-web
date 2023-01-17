@@ -41,7 +41,7 @@ export default function NotesForm({notes, setNotes}) {
             </Form.Button>
             {notes.map((note, index) => {
                 return (
-                    <Grid.Row className="note-card">
+                    <Grid.Row key={index} className="note-card">
                         <Grid.Column>
                             <Form.Input>
                                 <FormControl as="textarea" rows="3" ref={textRef}

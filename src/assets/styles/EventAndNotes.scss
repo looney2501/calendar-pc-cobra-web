@@ -1,10 +1,27 @@
 @import "globals";
 
-.save-event-button {
-  border: none;
-  cursor: pointer;
-  color: $font-blue;
-  background-color: $light-gray;
-  margin-left: 12px;
-  alignment: right;
+.details-body {
+  & > div:nth-of-type(2) {
+    height: 50%;
+    width: 100%;
+  }
+
+  .save-event-button {
+    border: none;
+    cursor: pointer;
+    color: $font-blue;
+    background-color: $light-gray;
+    margin-left: 12px;
+    alignment: right;
+  }
+
+  .add-location-label {
+    color: $font-blue;
+    display: flex;
+    align-content: center;
+
+    #addLocationInput {
+      margin-right: 5px;
+    }
+  }
 }
