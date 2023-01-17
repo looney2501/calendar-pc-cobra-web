@@ -4,7 +4,7 @@ export const initialState = {
   //TODO remove
   token: 'eduardcadar@yahoo.com',
   isLoading: false,
-  isAuthenticated: true,
+  isAuthenticated: false,
   error: null
 }
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import "../assets/styles/LoginForm.scss"
 import { Navigate, useNavigate } from 'react-router-dom'
+import logo from "../assets/img/Cobra.png";
+
 
 const LoginForm = ({ loginCallback, isAuthenticated }) => {
   const [username, setUsername] = useState('')
@@ -27,6 +29,8 @@ const LoginForm = ({ loginCallback, isAuthenticated }) => {
   }
 
   return (
+      <>
+    <img src={logo} alt='logo' height='150px' />
     <div id="LoginForm" className='d-flex flex-column'>
       <div className="username-wrapper">
         <label>Username:</label>
@@ -38,6 +42,7 @@ const LoginForm = ({ loginCallback, isAuthenticated }) => {
       </div>
       <button className="btn btn-login" onClick={handleLoginButtonClick}>Log in</button>
     </div>
+      </>
   )
 }
 
