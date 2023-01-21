@@ -5,7 +5,7 @@ import { NotesList } from "./NotesList";
 
 function EventDetails({ name, notes, date, description, show, startTime, endTime }) {
     const d = new Date(date);
-    const formattedDate = moment(d, true).format('DD/MM/YYYY hh:mm');
+    const formattedDate = moment(d, true).format('DD/MM/YYYY');
 
     return (
       <Card border="light" style={{ width: "100%", height: "100%" }}>
